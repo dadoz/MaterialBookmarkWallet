@@ -6,17 +6,14 @@ import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.gms)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.segrets.gradle)
     alias(libs.plugins.kotlin.parcelize)
-
 //    id("com.google.firebase.appdistribution")
 }
 
@@ -108,11 +105,6 @@ android {
     namespace = "com.application.material.bookmarkswallet.app"
 }
 
-// Allow references to generated code
-kapt {
-    correctErrorTypes = true
-}
-
 secrets {
     // Change the properties file from the default "local.properties" in your root project
     // to another properties file in your root project.
@@ -124,6 +116,7 @@ dependencies {
 
     //android
     implementation(libs.core.ktx)
+    implementation(libs.concurrent.futures)
 
     //kotlin metadata
     implementation(libs.kotlin.metadata.jvm)
