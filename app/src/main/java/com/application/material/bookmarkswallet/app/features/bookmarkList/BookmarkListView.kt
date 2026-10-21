@@ -9,10 +9,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyGridState
@@ -78,9 +76,11 @@ import com.application.material.bookmarkswallet.app.ui.components.MbPrimaryButto
 import com.application.material.bookmarkswallet.app.ui.style.Dimen
 import com.application.material.bookmarkswallet.app.ui.style.mbAppBarContainerColor
 import com.application.material.bookmarkswallet.app.ui.style.mbButtonRedVermillionColor
+import com.application.material.bookmarkswallet.app.ui.style.mbButtonYellowDarkLightColor
 import com.application.material.bookmarkswallet.app.ui.style.mbGrayLightColor2
 import com.application.material.bookmarkswallet.app.ui.style.mbSubtitleTextStyle
 import com.application.material.bookmarkswallet.app.ui.style.mbTitleHExtraBigBoldYellowTextStyle
+import com.application.material.bookmarkswallet.app.ui.style.mbTitleMediumBoldTextStyle
 import com.application.material.bookmarkswallet.app.ui.style.mbTitleMediumBoldYellowLightDarkTextStyle
 import com.application.material.bookmarkswallet.app.utils.BOOKMARK_COLUMN_GRID_SIZE
 import com.application.material.bookmarkswallet.app.utils.BOOKMARK_COLUMN_LIST_SIZE
@@ -304,7 +304,10 @@ fun BookmarkListComponentView(
                     .padding(
                         vertical = Dimen.paddingMedium16dp
                     ),
-                isVisible = isBookmarkListEmpty
+                isVisible = isBookmarkListEmpty,
+                onAddBookmarkClick = {
+                    isSearchModalBottomSheetVisible.value = true
+                }
             )
 
             //main container view of all bookmarks
@@ -353,7 +356,7 @@ fun BookmarkListComponentView(
         }
 
         //fab button
-        MbFab(
+        AnimatedVisibility(
             modifier = Modifier
                 .align(
                     alignment = Alignment.BottomEnd
@@ -364,11 +367,16 @@ fun BookmarkListComponentView(
                 .padding(
                     end = Dimen.paddingMedium16dp
                 ),
-            iconRes = R.drawable.ic_add_dark,
-            onClickAction = {
-                isSearchModalBottomSheetVisible.value = true
-            }
-        )
+            visible = isBookmarkListEmpty.not()
+        ) {
+            MbFab(
+                modifier = Modifier,
+                iconRes = R.drawable.ic_add_dark,
+                onClickAction = {
+                    isSearchModalBottomSheetVisible.value = true
+                }
+            )
+        }
     }
 
     //modal to show add new Bookmark
@@ -463,36 +471,30 @@ fun BookmarkListComponentView(
 @Composable
 fun MbEmptyBookmarkListView(
     modifier: Modifier = Modifier,
-    isVisible: Boolean
+    isVisible: Boolean,
+    onAddBookmarkClick: () -> Unit
 ) {
     AnimatedVisibility(
         modifier = modifier
-            .wrapContentWidth(),
+            .fillMaxWidth(),
         visible = isVisible
     ) {
         MbCardView(
             modifier = Modifier
-                .width(
-                    width = Dimen.size240dp
-                )
-                .heightIn(
-                    min = Dimen.size180dp
-                )
+                .fillMaxWidth()
         ) {
             Column(
                 modifier = Modifier
-                    .heightIn(
-                        min = Dimen.size180dp
-                    ),
+                    .fillMaxWidth(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Image(
                     modifier = Modifier
                         .size(
-                            size = Dimen.size160dp
+                            size = Dimen.sizeLarge200
                         ),
-                    painter = painterResource(id = R.drawable.ic_sleep_foz_illustration_200),
+                    painter = painterResource(id = R.drawable.ic_sleep_foz_illustration_new_200),
                     contentDescription = ""
                 )
                 Text(
@@ -501,8 +503,25 @@ fun MbEmptyBookmarkListView(
                             top = Dimen.paddingMedium16dp
                         ),
                     textAlign = TextAlign.Center,
+                    style = mbTitleMediumBoldTextStyle(),
+                    text = stringResource(R.string.empty_bookmark_list_title),
+                )
+                Text(
+                    modifier = Modifier
+                        .padding(
+                            top = Dimen.paddingMedium16dp
+                        ),
+                    textAlign = TextAlign.Center,
                     style = mbSubtitleTextStyle(),
-                    text = stringResource(R.string.empty_bookmark_list_label),
+                    text = stringResource(R.string.empty_bookmark_list_desc),
+                )
+                MbPrimaryButton(
+                    text = stringResource(R.string.empty_bookmark_list_button),
+                    colors = mbButtonYellowDarkLightColor(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = Dimen.paddingLarge32dp),
+                    onClickAction = onAddBookmarkClick
                 )
             }
         }
@@ -646,6 +665,21 @@ fun BookmarkListViewPreview() {
                 modifier = Modifier,
                 searchBookmarkViewModel = null,
                 bookmarkViewModel = null
+            )
+        }
+    }
+}
+
+@Composable
+@Preview
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+fun MbEmptyBookmarkListViewPreview() {
+    MaterialBookmarkMaterialTheme {
+        Box(modifier = Modifier.background(mbGrayLightColor2())) {
+            MbEmptyBookmarkListView(
+                modifier = Modifier,
+                isVisible = true,
+                onAddBookmarkClick = {}
             )
         }
     }

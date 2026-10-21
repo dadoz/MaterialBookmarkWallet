@@ -129,7 +129,7 @@ fun mbTitleMediumBoldYellowLightDarkTextStyle(isHighlighted: Boolean = false) =
 
 @Composable
 fun mbTitleMediumBoldTextStyle(
-    color: Color = MbColor.GrayBlueAlternativeDark,
+    color: Color = mbMustardDarkWhiteColor(),
 ) = mbTitleBoldTextStyle()
     .copy(
         fontSize = 26.sp,

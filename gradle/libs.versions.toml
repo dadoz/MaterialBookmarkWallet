@@ -3,15 +3,15 @@ accompanistSystemuicontroller = "0.36.0"
 concurrentFutures = "1.3.0"
 generativeai = "0.9.0"
 gsonAdapter = "3.0.0"
-androidGradlePlugin = "9.4.0"
+androidGradlePlugin = "9.4.1"
 coilCompose = "2.7.0"
-kotlin = "2.4.20"
+kotlin = "2.4.21"
 kotlinMetadataJvm = "2.4.0"
 hilt = "2.60.1"
-mapsCompose = "8.6.0"
-material3Android = "1.5.0-alpha28"
+mapsCompose = "9.0.1"
+material3Android = "1.5.0-beta01"
 materialIconsExtended = "1.7.8"
-navigationCompose = "2.10.1"
+navigationCompose = "2.10.2"
 room = "2.8.5"
 googleServicePlugin = "4.5.0"
 firebaseCrashlyticsPlugin = "3.0.8"
@@ -20,7 +20,7 @@ secretsGradlePluginVersion = "2.0.1"
 
 #libraries version
 compose = "2026.09.00"
-firebase = "34.19.0"
+firebase = "35.0.2"
 firebaseUIAuth = "9.1.1"
 activityCompose = "1.13.0"
 retrofit = "3.0.0"
@@ -35,21 +35,21 @@ junit = "4.13.2"
 junitExt = "1.3.0"
 espresso = "3.7.0"
 composeUi = "1.12.1"
-coreKtx = "1.19.0"
+coreKtx = "1.19.1"
 lifecycleRuntime = "2.11.0"
 constraintlayoutCompose = "1.1.2"
 viewpager2 = "1.1.0"
-workRuntime = "2.11.2"
+workRuntime = "2.12.0"
 timber = "5.0.1"
 okhttp = "5.5.0"
-kotlinxSerialization = "1.11.0"
+kotlinxSerialization = "1.12.0"
 lottie = "6.7.1"
 material = "1.14.0"
 gson = "2.14.0"
 
 #version-junit5
 playServicesLocation = "21.4.0"
-playServicesMaps = "20.0.0"
+playServicesMaps = "20.1.0"
 material3WindowSizeClass = "1.4.0"
 accompanist = "0.37.3"
 
@@ -242,7 +242,6 @@ gms = { id = "com.google.gms.google-services", version.ref = "googleServicePlugi
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 segrets-gradle = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin" }
 #to handle datepicker

@@ -118,4 +118,9 @@
     <string name="menu_tab_settings">Profile Settings</string>
     <string name="add_title_manually">title</string>
     <string name="userid_login">uid user</string>
+
+    <!-- empty bookmark list custom design -->
+    <string name="empty_bookmark_list_title">Still no bookmarks</string>
+    <string name="empty_bookmark_list_desc">Salva articoli, ispirazioni e risorse dal web per ritrovarli facilmente in qualsiasi momento.</string>
+    <string name="empty_bookmark_list_button">Aggiungi il primo Bookmark</string>
 </resources>
