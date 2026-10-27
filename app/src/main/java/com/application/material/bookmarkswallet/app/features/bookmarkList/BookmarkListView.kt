@@ -494,7 +494,7 @@ fun MbEmptyBookmarkListView(
                         .size(
                             size = Dimen.sizeLarge200
                         ),
-                    painter = painterResource(id = R.drawable.ic_sleep_foz_illustration_new_200),
+                    painter = painterResource(id = R.drawable.ic_fox_sleep_illustration),
                     contentDescription = ""
                 )
                 Text(

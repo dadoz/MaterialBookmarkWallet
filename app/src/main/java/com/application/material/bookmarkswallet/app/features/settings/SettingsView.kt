@@ -29,8 +29,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.application.material.bookmarkswallet.app.R
 import com.application.material.bookmarkswallet.app.features.bookmarkList.components.UserLoginCardView
@@ -41,10 +39,12 @@ import com.application.material.bookmarkswallet.app.ui.components.MbCardView
 import com.application.material.bookmarkswallet.app.ui.components.MbPrimaryButton
 import com.application.material.bookmarkswallet.app.ui.style.Dimen
 import com.application.material.bookmarkswallet.app.ui.style.mbBasicCardBackgroundColors
-import com.application.material.bookmarkswallet.app.ui.style.mbButtonCookieTextStyle
+import com.application.material.bookmarkswallet.app.ui.style.mbButtonTextStyle
 import com.application.material.bookmarkswallet.app.ui.style.mbGrayLightColor2
+import com.application.material.bookmarkswallet.app.ui.style.mbGrayLightExtraBlueDarkColor
 import com.application.material.bookmarkswallet.app.ui.style.mbMustardDarkWhiteColor
 import com.application.material.bookmarkswallet.app.ui.style.mbSettingsProFeatCardBackgroundColor
+import com.application.material.bookmarkswallet.app.ui.style.mbSubtitleTextSmallStyle
 import com.application.material.bookmarkswallet.app.ui.style.mbSubtitleTextStyle
 import com.application.material.bookmarkswallet.app.ui.style.mbSwitchColors
 import com.application.material.bookmarkswallet.app.ui.style.mbTitleHExtraBigBoldYellowTextStyle
@@ -52,6 +52,7 @@ import com.application.material.bookmarkswallet.app.ui.style.mbTitleMediumBoldYe
 import com.application.material.bookmarkswallet.app.ui.style.mbYellowLemonAlternateColor
 import com.application.material.bookmarkswallet.app.ui.style.mbYellowLemonLightColor
 import com.application.material.bookmarkswallet.app.utils.EMPTY
+import com.application.material.bookmarkswallet.app.utils.ONE
 import com.application.material.bookmarkswallet.app.utils.TWO
 
 @Composable
@@ -116,7 +117,9 @@ fun SettingsInternalView(
                     alignment = Alignment.Start
                 )
                 .padding(bottom = Dimen.paddingSmall8dp),
-            style = mbSubtitleTextStyle(),
+            style = mbSubtitleTextStyle().copy(
+                fontSize = Dimen.fontSizeMedium16sp
+            ),
             text = "Something more here...\n" +
                     "Thanks for illustration in app due to a dedicated work."
         )
@@ -151,207 +154,150 @@ fun SettingItemCardView(
             else -> mbBasicCardBackgroundColors()
         }
     ) {
-        ConstraintLayout(
+        Column(
             modifier = Modifier
-                .padding(
-                    all = Dimen.paddingMedium16dp
-                )
+                .fillMaxWidth()
+                .padding(all = Dimen.paddingMedium16dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            val (iconRef, titleRef, proLabelRef, descriptionRef, childrenListRef) = createRefs()
-            //image icon
-            setting.iconRes
-                ?.let {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.Top
+            ) {
+                //image icon
+                setting.iconRes?.let {
                     Image(
                         modifier = Modifier
-                            .constrainAs(ref = iconRef) {
-                                top.linkTo(anchor = parent.top)
-                                start.linkTo(anchor = parent.start)
-                            }
-                            .size(
-                                size = Dimen.size48dp
-                            ),
+                            .padding(end = Dimen.paddingMedium16dp)
+                            .size(size = Dimen.size48dp),
                         painter = painterResource(id = it),
                         contentDescription = EMPTY
                     )
                 }
-            //title
-            setting.nameRes
-                ?.let {
-                    Text(
-                        modifier = Modifier
-                            .constrainAs(ref = titleRef) {
-                                top.linkTo(anchor = parent.top)
 
-                                when {
-                                    setting.isProFeat ->
-                                        end.linkTo(anchor = proLabelRef.start)
-
-                                    else ->
-                                        end.linkTo(anchor = parent.end)
-                                }
-                                when {
-                                    setting.iconRes != null -> start.linkTo(
-                                        anchor = iconRef.end,
-                                        margin = Dimen.paddingMedium16dp
-                                    )
-
-                                    else -> start.linkTo(anchor = parent.start)
-                                }
-                                width = Dimension.fillToConstraints
-                            }
-                            .padding(bottom = Dimen.paddingSmall8dp),
-                        style = mbTitleMediumBoldYellowLightDarkTextStyle(
-                            isHighlighted = setting.isProFeat
-                        ),
-                        maxLines = 2,
-                        text = stringResource(id = it)
-                    )
-                }
-            //title
-            setting.isProFeat
-                .takeIf { it }
-                ?.let {
-                    Text(
-                        modifier = Modifier
-                            .constrainAs(ref = proLabelRef) {
-                                top.linkTo(anchor = parent.top)
-                                end.linkTo(anchor = parent.end)
-                                width = Dimension.fillToConstraints
-                            }
-                            .padding(bottom = Dimen.paddingSmall8dp),
-                        style = mbTitleMediumBoldYellowLightDarkTextStyle(
-                            isHighlighted = true
-                        ),
-                        maxLines = TWO,
-                        text = stringResource(id = R.string.pro_label)
-                    )
-                }
-
-            //title
-            setting.descriptionRes
-                ?.let {
-                    Text(
-                        modifier = Modifier
-                            .constrainAs(ref = descriptionRef) {
-                                top.linkTo(anchor = titleRef.bottom)
-                                end.linkTo(anchor = parent.end)
-                                when {
-                                    setting.iconRes != null -> start.linkTo(
-                                        anchor = iconRef.end,
-                                        margin = Dimen.paddingMedium16dp
-                                    )
-
-                                    else -> start.linkTo(anchor = parent.start)
-                                }
-                                width = Dimension.preferredWrapContent
-                            }
-                            .padding(bottom = Dimen.paddingSmall8dp),
-                        style = mbSubtitleTextStyle(),
-                        text = stringResource(id = it)
-                    )
-                }
-
-            setting.childrenItem
-                ?.let { children ->
-                    Column(
-                        modifier = Modifier
-                            .constrainAs(ref = childrenListRef) {
-                                top.linkTo(anchor = parent.top)
-                                top.linkTo(anchor = titleRef.bottom)
-                            }
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(Dimen.paddingSmall8dp)
+                ) {
+                    // Header Row: Title + PRO label
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        children
-                            .onEach {
-                                when (it.childrenItemType) {
+                        setting.nameRes?.let {
+                            Text(
+                                modifier = Modifier.weight(1f, fill = false),
+                                style = mbTitleMediumBoldYellowLightDarkTextStyle(
+                                    isHighlighted = setting.isProFeat
+                                ).copy(
+                                    fontSize = Dimen.fontSizeMedium20sp
+                                ),
+                                maxLines = 2,
+                                text = stringResource(id = it)
+                            )
+                        }
+
+                        if (setting.isProFeat) {
+                            Text(
+                                modifier = Modifier.padding(start = Dimen.paddingSmall8dp),
+                                style = mbSubtitleTextSmallStyle(
+                                    color = mbGrayLightExtraBlueDarkColor()
+                                ),
+                                maxLines = ONE,
+                                text = stringResource(id = R.string.pro_label)
+                            )
+                        }
+                    }
+
+                    // Description
+                    setting.descriptionRes?.let {
+                        Text(
+                            style = mbSubtitleTextStyle().copy(
+                                fontSize = Dimen.fontSizeMedium16sp
+                            ),
+                            text = stringResource(id = it)
+                        )
+                    }
+
+                    // Children items
+                    setting.childrenItem?.let { children ->
+                        Column(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalArrangement = Arrangement.spacedBy(Dimen.paddingSmall8dp)
+                        ) {
+                            children.forEach { child ->
+                                when (child.childrenItemType) {
                                     SettingsChildrenItemType.SETTING_CHILD_SWITCH -> {
                                         Row(
-                                            modifier = Modifier
-                                                .fillMaxWidth(),
+                                            modifier = Modifier.fillMaxWidth(),
                                             verticalAlignment = Alignment.CenterVertically
                                         ) {
                                             Text(
-                                                modifier = Modifier
-                                                    .weight(
-                                                        weight = 1f
-                                                    )
-                                                    .padding(bottom = Dimen.paddingSmall8dp),
+                                                modifier = Modifier.weight(1f),
                                                 style = mbSubtitleTextStyle(
                                                     color = when {
                                                         setting.isProFeat -> mbYellowLemonAlternateColor()
                                                         else -> mbMustardDarkWhiteColor()
                                                     }
+                                                ).copy(
+                                                    fontSize = Dimen.fontSizeMedium16sp
                                                 ),
                                                 maxLines = TWO,
-                                                text = stringResource(id = (it as ChildrenSwitchItem).labelRes)
+                                                text = stringResource(id = (child as ChildrenSwitchItem).labelRes)
                                             )
                                             Switch(
                                                 checked = isChecked.value,
                                                 colors = mbSwitchColors(),
-                                                onCheckedChange = {
-                                                    isChecked.value = it
-                                                }
+                                                onCheckedChange = { isChecked.value = it }
                                             )
                                         }
                                     }
 
                                     SettingsChildrenItemType.SETTING_CHILD_COLOR -> {
                                         LazyRow(
-                                            modifier = Modifier
-                                                .fillMaxWidth(),
+                                            modifier = Modifier.fillMaxWidth(),
                                             verticalAlignment = Alignment.CenterVertically,
                                             horizontalArrangement = Arrangement.spacedBy(
                                                 space = Dimen.paddingSmall8dp
-                                            ),
+                                            )
                                         ) {
-                                            items(items = (it as ChildrenColorItem).colorList) {
+                                            items(items = (child as ChildrenColorItem).colorList) { color ->
                                                 Box(
                                                     modifier = Modifier
-                                                        .clip(
-                                                            shape = CircleShape
-                                                        )
-                                                        .size(
-                                                            size = Dimen.size48dp
-                                                        )
-                                                        .background(
-                                                            color = it
-                                                        )
+                                                        .clip(shape = CircleShape)
+                                                        .size(size = Dimen.size48dp)
+                                                        .background(color = color)
                                                 )
                                             }
                                         }
                                     }
 
-                                    else -> {
-                                    }
+                                    else -> {}
                                 }
                             }
+                        }
                     }
                 }
-        }
+            }
 
-        //cta label
-        setting.ctaLabel
-            ?.let {
+            // CTA Button
+            setting.ctaLabel?.let {
                 MbPrimaryButton(
-                    modifier = Modifier
-                        .align(
-                            alignment = Alignment.CenterHorizontally
-                        ),
+                    modifier = Modifier.padding(top = Dimen.paddingMedium16dp),
                     horizontalPadding = Dimen.paddingMedium16dp,
-                    textStyle = mbButtonCookieTextStyle(),
+                    textStyle = mbButtonTextStyle(),
                     text = stringResource(id = it),
                     onClickAction = {
                         when {
-                            setting.url != null -> localUriHandler.openUri(
-                                setting.url
-                            )
-
-                            else -> {
-                                setting.ctaAction?.invoke()
-                            }
+                            setting.url != null -> localUriHandler.openUri(setting.url)
+                            else -> setting.ctaAction?.invoke()
                         }
                     }
                 )
             }
+        }
     }
 }
 
