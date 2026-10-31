@@ -3,7 +3,6 @@ package com.application.material.bookmarkswallet.app.features.settings.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import com.application.material.bookmarkswallet.app.features.bookmarkList.model.User
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -11,17 +10,16 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(application: Application) :
     AndroidViewModel(application = application) {
     val user by lazy {
-        null
-            ?: User(
-                name = "GUEST",
-                userId =  "-",
-                email = "-",
-                photoUrl = null,
-                idToken = TODO(),
-                lastName = TODO(),
-                firstName = TODO(),
-                displayName = TODO()
-            )
+        User(
+            name = "Davide Lm",
+            userId = "-",
+            email = "-",
+            photoUrl = null,
+            idToken = "id token",
+            lastName = "last name",
+            firstName = "first name",
+            displayName = "Davide L"
+        )
     }
 
 //    fun signIn(email: String, password: String) {

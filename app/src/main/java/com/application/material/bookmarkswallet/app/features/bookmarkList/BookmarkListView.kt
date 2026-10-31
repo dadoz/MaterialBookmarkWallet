@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -490,9 +491,15 @@ fun MbEmptyBookmarkListView(
                 Image(
                     modifier = Modifier
                         .size(
-                            size = Dimen.sizeLarge200
+                            size = Dimen.size160dp
                         ),
-                    painter = painterResource(id = R.drawable.ic_fox_sleep_illustration),
+                    painter = painterResource(
+                        id =
+                            when (isSystemInDarkTheme()) {
+                                true -> R.drawable.ic_fox_sleep_illustration_dark
+                                else -> R.drawable.ic_fox_sleep_illustration
+                            }
+                    ),
                     contentDescription = ""
                 )
                 Text(

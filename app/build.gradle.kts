@@ -35,10 +35,12 @@ val keystoreProperties = Properties().apply {
     load(FileInputStream(rootProject.file("keystore.properties")))
 }
 // Use project.findProperty to avoid build failures if the property is missing
-val serverClientId: String = Properties().apply {
+val serverClientId = Properties().apply {
     load(FileInputStream(rootProject.file("secrets.properties")))
-}
-    .getProperty("serverClientId")
+}.getProperty("AUTH_SERVER_API_KEY")
+val geminiApiKey = Properties().apply {
+    load(FileInputStream(rootProject.file("secrets.properties")))
+}.getProperty("GEMINI_API_KEY")
 
 android {
     compileSdk = 37
@@ -59,6 +61,12 @@ android {
             "String",
             "SERVER_CLIENT_ID",
             "\"$serverClientId\""
+        )
+
+        buildConfigField(
+            "String",
+            "GEMINI_API_KEY",
+            "\"$geminiApiKey\""
         )
 
         buildConfigField(
