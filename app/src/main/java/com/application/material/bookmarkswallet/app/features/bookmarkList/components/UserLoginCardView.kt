@@ -222,7 +222,7 @@ fun UserLoginCardView(
                         ),
                     style = mbSubtitleTextSmallStyle(),
                     maxLines = ONE,
-                    text = user?.uid ?: "NO_USER_ID"
+                    text = user?.userId ?: "-"
                 )
                 MbPrimaryButton(
                     modifier = Modifier
@@ -258,8 +258,12 @@ fun UserLoginCardViewPreview() {
                 user = User(
                     name = "Davide",
                     photoUrl = "https://p.kindpng.com/picc/s/727-7271359_philip-j-fry-avatar-hd-png-download.png",
-                    uid = "3xfcd11120334cdeffacl123eeeddd11222244",
-                    email = "blallal@gmail.com"
+                    userId = "3xfcd11120334cdeffacl123eeeddd11222244",
+                    email = "blallal@gmail.com",
+                    idToken = "id token",
+                    lastName = "last name",
+                    firstName = "name",
+                    displayName = "davide lamns"
                 ),
                 onOpenAction = {}
             )

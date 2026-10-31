@@ -123,4 +123,45 @@
     <string name="empty_bookmark_list_title">Still no bookmarks</string>
     <string name="empty_bookmark_list_desc">Salva articoli, ispirazioni e risorse dal web per ritrovarli facilmente in qualsiasi momento.</string>
     <string name="empty_bookmark_list_button">Aggiungi il primo Bookmark</string>
+
+    <!-- Canary Pro Settings -->
+    <string name="canary_pro_title">Canary Pro</string>
+    <string name="attivo_badge">ATTIVO</string>
+    <string name="canary_vip_title">Canary VIP</string>
+    <string name="lifetime_badge">LIFETIME</string>
+    <string name="license_active_subtitle">Licenza attiva • Accesso a Vita</string>
+    <string name="all_modules_unlocked">Tutti i 6 moduli sbloccati</string>
+    <string name="build_pro_version">Build 2.2.0-PRO</string>
+
+    <string name="skin_color_title">Aspetto &amp; Skin Color</string>
+    <string name="skin_color_subtitle">Personalizza la tinta d\'accento e l\'interfaccia dell\'app</string>
+    <string name="primary_color_section">Colore Primario Sistema</string>
+    <string name="amoled_dark_theme">Tema Scuro AMOLED</string>
+    <string name="amoled_dark_theme_desc">Nero profondo con contrasti dorati</string>
+    <string name="app_icon_section">Icona Applicazione (Sbloccata)</string>
+
+    <string name="ai_feat_title">AI &amp; Ricerca Feat</string>
+    <string name="ai_feat_subtitle">Motore semantico locale potenziato</string>
+    <string name="search_ai_desc">Interroga i tuoi link in linguaggio naturale</string>
+    <string name="ecosia_preview_desc">Lettore istantaneo senza annunci</string>
+    <string name="fine_search_desc">Auto-tagging e categorizzazione intelligente</string>
+    <string name="download_bookmarks_desc">Archiviazione web offline in locale (HTML snapshot)</string>
+    <string name="inapp_config_desc">Sincronizzazione licenze Family Sharing</string>
+
+    <string name="sync_cloud_title">Sync on Google &amp; Cloud</string>
+    <string name="sync_google_subtitle">Sincronizzazione in tempo reale su tutti i dispositivi</string>
+    <string name="sync_google_account">Account: dev.alex@canarypocket.app</string>
+    <string name="sync_bookmarks_count">1.482 segnalibri protetti nel cloud</string>
+    <string name="export_html_json">Esporta HTML/JSON</string>
+    <string name="restore_backup">Ripristina Backup</string>
+
+    <string name="dev_support_title">Supporto Sviluppatore</string>
+    <string name="dev_support_sub">Grazie per essere un membro Canary Pro!</string>
+    <string name="dev_support_desc">Il tuo supporto sostiene il rilascio continuo di nuove funzioni AI e server di sincronizzazione velocissimi.</string>
+    <string name="support_247">Assistenza 24/7\nPriorità Pro</string>
+    <string name="playstore_rate">Playstore\nValuta l\'app</string>
+
+    <string name="pro_unlocked">Pro Sbloccata</string>
+    <string name="license_id">ID Licenza: CNRY-PRO-8849-IT</string>
+    <string name="verified">Verificata</string>
 </resources>

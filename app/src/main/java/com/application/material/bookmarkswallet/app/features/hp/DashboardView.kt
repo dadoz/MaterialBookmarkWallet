@@ -4,7 +4,6 @@ import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
@@ -13,7 +12,6 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults.Indicator
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -31,13 +29,12 @@ import com.application.material.bookmarkswallet.app.ui.style.homeBackgroundBrush
 import com.application.material.bookmarkswallet.app.ui.style.homeBackgroundColor
 import com.application.material.bookmarkswallet.app.ui.style.mbMustardBlueBlackExtraDarkColor
 import com.application.material.bookmarkswallet.app.ui.style.mbNavBarBackground
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootGraph
 
-@OptIn(ExperimentalMaterial3Api::class)
+@Destination<RootGraph>
 @Composable
-fun HpScaffoldView() {
+fun DashboardView() {
     val context = LocalContext.current
     val navController = rememberNavController()
 
@@ -47,15 +44,6 @@ fun HpScaffoldView() {
 
     //nav item selected state
     val navItemSelectedState = remember { mutableStateOf(value = NavRoute.BookmarkList) }
-
-    LaunchedEffect(key1 = isLoading.value) {
-        if (isLoading.value) {
-            launch(Dispatchers.Main) {
-                delay(2000L)
-                isLoading.value = false
-            }
-        }
-    }
 
     Scaffold(
         modifier = Modifier

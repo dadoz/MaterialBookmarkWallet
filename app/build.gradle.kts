@@ -34,6 +34,11 @@ val versionCodeTimestamp = SimpleDateFormat("ddMMyyHHmm", Locale.ITALY)
 val keystoreProperties = Properties().apply {
     load(FileInputStream(rootProject.file("keystore.properties")))
 }
+// Use project.findProperty to avoid build failures if the property is missing
+val serverClientId: String = Properties().apply {
+    load(FileInputStream(rootProject.file("secrets.properties")))
+}
+    .getProperty("serverClientId")
 
 android {
     compileSdk = 37
@@ -49,6 +54,12 @@ android {
         minSdk = 32
         versionCode = versionCodeTimestamp
         versionName = appVersionName
+
+        buildConfigField(
+            "String",
+            "SERVER_CLIENT_ID",
+            "\"$serverClientId\""
+        )
 
         buildConfigField(
             "String",
@@ -123,6 +134,8 @@ dependencies {
 
     //lifecycle
     implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.material3.adaptive.navigation.suite)
+    implementation(libs.navigation.common.ktx)
 
     //playservices
     implementation(libs.play.services.location)
@@ -206,6 +219,9 @@ dependencies {
     //LOTTIE
     implementation(libs.lottie)
 
+    //google auth
+    implementation(libs.bundles.googleAuth)
+
     //firebase auth
     implementation(libs.firebase.ui.auth)
     implementation(libs.firebase.auth)
@@ -215,6 +231,9 @@ dependencies {
     implementation(libs.coil.compose)
 
     implementation(libs.generativeai)
+
+    //splash
+    implementation(libs.androidx.core.splashscreen)
 
     //test
     testImplementation(libs.junit)

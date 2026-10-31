@@ -37,7 +37,7 @@ fun MbCardView(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(Dimen.paddingMedium16dp),
+                .padding(all = Dimen.paddingMedium16dp),
             content = content
         )
     }

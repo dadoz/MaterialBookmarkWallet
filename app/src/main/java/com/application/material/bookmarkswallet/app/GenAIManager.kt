@@ -10,6 +10,6 @@ class GenAIManager @Inject constructor() {
         // The Gemini 1.5 models are versatile and work with most use cases
         modelName = "gemini-2.5-flash-lite",
         // Access your API key as a Build Configuration variable (see "Set up your API key" above)
-        apiKey = BuildConfig.apiKey
+        apiKey = "BuildConfig.apiKey" //todo recover by secret.properties
     )
 }

@@ -24,8 +24,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.ButtonColors
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -60,7 +59,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.application.material.bookmarkswallet.app.R
-import com.application.material.bookmarkswallet.app.features.bookmarkList.BookmarkListButtonContainerHeight
 import com.application.material.bookmarkswallet.app.features.bookmarkList.components.BookmarkPreviewCard
 import com.application.material.bookmarkswallet.app.features.bookmarkList.model.Bookmark
 import com.application.material.bookmarkswallet.app.features.searchBookmark.model.SearchResultUIState
@@ -93,6 +91,8 @@ import com.application.material.bookmarkswallet.app.ui.style.mbYellowLemonLightM
 import com.application.material.bookmarkswallet.app.utils.EMPTY
 import com.application.material.bookmarkswallet.app.utils.ZERO
 import java.util.Date
+
+val BookmarkListButtonContainerHeight = ButtonDefaults.MediumContainerHeight
 
 @Composable
 fun SearchAndAddBookmarkView(
@@ -374,7 +374,7 @@ fun MbCustomTitleTextFieldView(
             OutlinedTextField(
                 modifier = Modifier
                     .focusRequester(
-                        focusRequester = FocusRequester()
+                        focusRequester = remember { FocusRequester() }
                     ),
                 textStyle = mbSubtitleTextStyle(),
                 shape = mbCardRoundedCornerShape(),
@@ -436,7 +436,6 @@ fun SearchAndAddBookmarkSuccessView(
 }
 
 @Deprecated("not used anymore")
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun SearchAndAddBookmarkWithFullAIView(
     modifier: Modifier = Modifier,
@@ -636,7 +635,6 @@ fun EditBookmarkView(
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
@@ -656,7 +654,6 @@ fun BookmarkPreview2() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable

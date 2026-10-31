@@ -18,9 +18,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.text.input.rememberTextFieldState
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.SearchBarValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberSearchBarState
@@ -74,10 +71,11 @@ import com.application.material.bookmarkswallet.app.ui.components.MbCardView
 import com.application.material.bookmarkswallet.app.ui.components.MbFab
 import com.application.material.bookmarkswallet.app.ui.components.MbPrimaryButton
 import com.application.material.bookmarkswallet.app.ui.style.Dimen
+import com.application.material.bookmarkswallet.app.ui.style.MbColor
 import com.application.material.bookmarkswallet.app.ui.style.mbAppBarContainerColor
 import com.application.material.bookmarkswallet.app.ui.style.mbButtonRedVermillionColor
 import com.application.material.bookmarkswallet.app.ui.style.mbButtonYellowDarkLightColor
-import com.application.material.bookmarkswallet.app.ui.style.mbGrayLightColor2
+import com.application.material.bookmarkswallet.app.ui.style.mbExtraLightGrayGrayBlueDarkColor
 import com.application.material.bookmarkswallet.app.ui.style.mbSubtitleTextStyle
 import com.application.material.bookmarkswallet.app.ui.style.mbTitleHExtraBigBoldYellowTextStyle
 import com.application.material.bookmarkswallet.app.ui.style.mbTitleMediumBoldTextStyle
@@ -90,7 +88,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.util.Date
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun BookmarkListComponentView(
     modifier: Modifier = Modifier,
@@ -137,6 +134,7 @@ fun BookmarkListComponentView(
     }
 
     //filter list on hp - FilterHp to Bool - removing save on store filtering
+    //todo SnapshotStateList
     val filterHpMapState = rememberSaveableMap(
         init = {
             //init value
@@ -517,6 +515,7 @@ fun MbEmptyBookmarkListView(
                 )
                 MbPrimaryButton(
                     text = stringResource(R.string.empty_bookmark_list_button),
+                    textColor = MbColor.DarkGray,
                     colors = mbButtonYellowDarkLightColor(),
                     modifier = Modifier
                         .fillMaxWidth()
@@ -660,7 +659,7 @@ fun BookmarkListInternalComponentView(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 fun BookmarkListViewPreview() {
     MaterialBookmarkMaterialTheme {
-        Box(modifier = Modifier.background(mbGrayLightColor2())) {
+        Box(modifier = Modifier.background(mbExtraLightGrayGrayBlueDarkColor())) {
             BookmarkListComponentView(
                 modifier = Modifier,
                 searchBookmarkViewModel = null,
@@ -673,9 +672,9 @@ fun BookmarkListViewPreview() {
 @Composable
 @Preview
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-fun MbEmptyBookmarkListViewPreview() {
+fun MbEmptyBookmarkListView2Preview() {
     MaterialBookmarkMaterialTheme {
-        Box(modifier = Modifier.background(mbGrayLightColor2())) {
+        Box(modifier = Modifier.background(mbExtraLightGrayGrayBlueDarkColor())) {
             MbEmptyBookmarkListView(
                 modifier = Modifier,
                 isVisible = true,
@@ -685,8 +684,20 @@ fun MbEmptyBookmarkListViewPreview() {
     }
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
-val BookmarkListButtonContainerHeight = ButtonDefaults.MediumContainerHeight
+@Composable
+@Preview
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+fun MbEmptyBookmarkListViewPreview() {
+    MaterialBookmarkMaterialTheme {
+        Box(modifier = Modifier.background(mbExtraLightGrayGrayBlueDarkColor())) {
+            MbEmptyBookmarkListView(
+                modifier = Modifier,
+                isVisible = true,
+                onAddBookmarkClick = {}
+            )
+        }
+    }
+}
 
 internal val bookmarkListMock = listOf(
     Bookmark(

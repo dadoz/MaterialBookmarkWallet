@@ -132,7 +132,7 @@ fun mbTitleMediumBoldTextStyle(
     color: Color = mbMustardDarkWhiteColor(),
 ) = mbTitleBoldTextStyle()
     .copy(
-        fontSize = 26.sp,
+        fontSize = 22.sp,
         color = color
     )
 
@@ -198,7 +198,7 @@ fun mbSubtitleTextSmallStyle(color: Color = colorResource(R.color.colorPrimary))
 @Composable
 fun mbSubtitleTextStyle(color: Color = mbMustardDarkWhiteColor()) = TextStyle(
     color = color,
-    fontSize = 20.sp,// myVeTitleMedium(),
+    fontSize = 16.sp,// myVeTitleMedium(),
     fontFamily = MbYantramanavLightFontFamily,
     fontWeight = FontWeight.Normal
 )
@@ -300,6 +300,21 @@ fun mbButtonRoundedCornerShape() =
 @Composable
 fun mbButtonYellowDarkLightColor() = mbButtonColorStyle(
     lightColor = MbColor.Yellow,
+    darkColor = MbColor.Yellow,
+)
+@Composable
+fun mbButtonWhiteLightDarkColor() = mbButtonColorStyle(
+    lightColor = MbColor.LightGray,
+    darkColor = MbColor.LightGray,
+)
+@Composable
+fun mbButtonBlackLightDarkColor() = mbButtonColorStyle(
+    lightColor = MbColor.Black,
+    darkColor = MbColor.Black,
+)
+@Composable
+fun mbButtonWhiteYellowDarkColor() = mbButtonColorStyle(
+    lightColor = MbColor.White,
     darkColor = MbColor.Yellow,
 )
 
@@ -616,6 +631,15 @@ fun Density.getResizedDensity(): Float {
         else -> this.density * densityResizeFactor
     }
 }
+
+val settingsAvatarColorList = listOf(
+    MbColor.Yellow,
+    MbColor.RedVermilion,
+    MbColor.VioletLilla,
+    MbColor.PinkElectric,
+    MbColor.GreenRubin,
+    MbColor.Black
+)
 
 //---------------------FONT FAMILY
 val MbYantramanavRegularFontFamily = FontFamily(

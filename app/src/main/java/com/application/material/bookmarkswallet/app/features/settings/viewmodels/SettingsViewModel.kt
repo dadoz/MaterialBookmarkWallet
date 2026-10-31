@@ -8,22 +8,20 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SettingsViewModel @Inject constructor(application: Application) : AndroidViewModel(application = application) {
+class SettingsViewModel @Inject constructor(application: Application) :
+    AndroidViewModel(application = application) {
     val user by lazy {
-        FirebaseAuth.getInstance().currentUser
-            ?.let {
-                User(
-                    name = it.displayName ?: "GUEST",
-                    uid = it.uid,
-                    email = it.email,
-                    photoUrl = it.photoUrl.toString()
-                )
-            } ?: User(
-            name = "GUEST",
-            uid = "-",
-            email = null,
-            photoUrl = null
-        )
+        null
+            ?: User(
+                name = "GUEST",
+                userId =  "-",
+                email = "-",
+                photoUrl = null,
+                idToken = TODO(),
+                lastName = TODO(),
+                firstName = TODO(),
+                displayName = TODO()
+            )
     }
 
 //    fun signIn(email: String, password: String) {
