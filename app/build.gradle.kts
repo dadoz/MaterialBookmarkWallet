@@ -37,7 +37,7 @@ val keystoreProperties = Properties().apply {
 // Use project.findProperty to avoid build failures if the property is missing
 val serverClientId = Properties().apply {
     load(FileInputStream(rootProject.file("secrets.properties")))
-}.getProperty("AUTH_SERVER_API_KEY")
+}.getProperty("AUTH_SERVER_CLIENT_ID")
 val geminiApiKey = Properties().apply {
     load(FileInputStream(rootProject.file("secrets.properties")))
 }.getProperty("GEMINI_API_KEY")

@@ -20,7 +20,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -45,6 +44,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.application.material.bookmarkswallet.app.R
 import com.application.material.bookmarkswallet.app.features.bookmarkList.model.User
+import com.application.material.bookmarkswallet.app.features.hp.components.MbAvatarView
 import com.application.material.bookmarkswallet.app.features.settings.viewmodels.SettingsViewModel
 import com.application.material.bookmarkswallet.app.ui.MaterialBookmarkMaterialTheme
 import com.application.material.bookmarkswallet.app.ui.components.MbCardView
@@ -719,22 +719,11 @@ fun CanaryVipUserCard(
                 Box(
                     modifier = Modifier.size(76.dp)
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .size(72.dp)
-                            .clip(CircleShape)
-                            .background(MbColor.Yellow)
-                            .padding(3.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_fox_illustration),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(66.dp)
-                                .clip(CircleShape)
-                        )
-                    }
+
+                    MbAvatarView(
+                        modifier = Modifier.size(76.dp),
+                        user = user
+                    )
 
                     // Edit Badge (pencil)
                     Box(

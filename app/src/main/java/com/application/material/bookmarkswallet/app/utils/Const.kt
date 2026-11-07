@@ -16,3 +16,6 @@ const val BOOKMARK_COLUMN_LIST_SIZE = 1
 const val BOOKMARK_COLUMN_GRID_SIZE = 2
 const val TWOHUNDRED_SEVENTY_F = 270f
 const val NINETY_F = 90f
+
+val ZERO_EIGHTF = 0.88f
+

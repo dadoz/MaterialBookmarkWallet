@@ -37,11 +37,12 @@ object Dimen {
     val sizeLarge32dp = 32.dp
     val paddingLarge32dp = 32.dp
 
-    val sizeLarge48dp = 48.dp
+    val size48dp = 48.dp
     val paddingLarge48dp = 48.dp
 
     //background values
-    val sizeExtraLarge64dp = 64.dp
+    val size64dp = 64.dp
+    val size72dp = 72.dp
     val sizeExtraLarge96dp = 96.dp
     val paddingExtraLarge64dp = 64.dp
 
@@ -122,7 +123,6 @@ object Dimen {
     //size
     val size6dp = 6.dp
     val size11dp = 11.dp
-    val size48dp = 48.dp
     val size36dp = 36.dp
     val size20dp = 20.dp
     val size22dp = 22.dp

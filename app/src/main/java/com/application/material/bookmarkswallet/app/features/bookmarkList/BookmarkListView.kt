@@ -6,8 +6,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -60,7 +62,7 @@ import com.application.material.bookmarkswallet.app.features.bookmarkList.saveab
 import com.application.material.bookmarkswallet.app.features.bookmarkList.saveable.rememberSaveableMap
 import com.application.material.bookmarkswallet.app.features.bookmarkList.state.BookmarkListUIState
 import com.application.material.bookmarkswallet.app.features.bookmarkList.viewmodels.BookmarkViewModel
-import com.application.material.bookmarkswallet.app.features.hp.SearchBarHeaderView
+import com.application.material.bookmarkswallet.app.features.hp.MbSearchBarHeaderView
 import com.application.material.bookmarkswallet.app.features.searchBookmark.EditBookmarkView
 import com.application.material.bookmarkswallet.app.features.searchBookmark.SearchAndAddBookmarkView
 import com.application.material.bookmarkswallet.app.features.searchBookmark.components.MbAddBookmarkModalBottomSheetView
@@ -268,7 +270,7 @@ fun BookmarkListComponentView(
                     horizontal = Dimen.paddingMedium16dp
                 )
         ) {
-            SearchBarHeaderView(
+            MbSearchBarHeaderView(
                 modifier = Modifier,
                 textFieldState = textFieldState,
                 searchBarState = searchBarState,
@@ -291,12 +293,38 @@ fun BookmarkListComponentView(
                 filterListTypeState = filterListTypeState
             )
 
-            //filter configuration in HP
-            MbFilterBookmarkHpView(
-                modifier = Modifier,
-                filterHpMapState = filterHpMapState,
-                selectedFilterHpMapState = selectedFilterHpMapState
-            )
+            Row(
+                modifier = Modifier
+                    .padding(
+                        vertical = Dimen.paddingMedium16dp
+                    ),
+                horizontalArrangement = spacedBy(Dimen.paddingLarge32dp)
+            ) {
+                //list type
+                BookmarkFilterView(
+                    modifier = Modifier,
+                    isSelectedOverride = filterListTypeState.value.first() == GRID, //list is only for generic type
+                    filterItems = filterListTypeState.value,
+                    onSelectedFilter = { selectedFilter, newValue ->
+                        filterListTypeState.value = when {
+                            selectedFilter == GRID -> listOf(
+                                LIST
+                            )
+
+                            else -> listOf(
+                                GRID
+                            )
+                        }
+                    }
+                )
+
+                //filter configuration in HP
+                MbFilterBookmarkHpView(
+                    modifier = Modifier,
+                    filterHpMapState = filterHpMapState,
+                    selectedFilterHpMapState = selectedFilterHpMapState
+                )
+            }
 
             MbEmptyBookmarkListView(
                 modifier = Modifier
@@ -552,7 +580,7 @@ fun MbHeaderBookmarkList(
                 .constrainAs(ref = titleRef) {
                     top.linkTo(anchor = parent.top)
                     start.linkTo(anchor = parent.start)
-                    end.linkTo(anchor = filterRef.start)
+                    end.linkTo(anchor = parent.end)
                     bottom.linkTo(anchor = parent.bottom)
                     width = Dimension.fillToConstraints
 
@@ -562,28 +590,7 @@ fun MbHeaderBookmarkList(
             text = stringResource(R.string.bookmarks_title),
         )
 
-        //list type
-        BookmarkFilterView(
-            modifier = Modifier
-                .constrainAs(ref = filterRef) {
-                    top.linkTo(anchor = parent.top)
-                    end.linkTo(anchor = parent.end)
-                    bottom.linkTo(anchor = parent.bottom)
-                },
-            isSelectedOverride = filterListTypeState.value.first() == GRID, //list is only for generic type
-            filterItems = filterListTypeState.value,
-            onSelectedFilter = { selectedFilter, newValue ->
-                filterListTypeState.value = when {
-                    selectedFilter == GRID -> listOf(
-                        LIST
-                    )
 
-                    else -> listOf(
-                        GRID
-                    )
-                }
-            }
-        )
     }
 }
 

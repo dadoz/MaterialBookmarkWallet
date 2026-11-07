@@ -1,10 +1,11 @@
 package com.application.material.bookmarkswallet.app.features.hp
 
 import android.content.res.Configuration
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -40,6 +41,7 @@ import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.tooling.preview.Preview
+import com.application.material.bookmarkswallet.app.features.hp.components.MbAvatarView
 import com.application.material.bookmarkswallet.app.ui.MaterialBookmarkMaterialTheme
 import com.application.material.bookmarkswallet.app.ui.style.Dimen
 import com.application.material.bookmarkswallet.app.ui.style.MbColor
@@ -53,7 +55,7 @@ import timber.log.Timber
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchBarHeaderView(
+fun MbSearchBarHeaderView(
     modifier: Modifier = Modifier,
     textFieldState: TextFieldState,
     searchBarState: SearchBarState,
@@ -167,16 +169,15 @@ fun SearchBarHeaderView(
             )
         }
 
-    Box(
+    Row(
         modifier = modifier
             .fillMaxWidth()
-            .semantics { isTraversalGroup = true }
+            .semantics { isTraversalGroup = true },
+        verticalAlignment = Alignment.CenterVertically
     ) {
         AppBarWithSearch(
             modifier = Modifier
-                .align(
-                    alignment = Alignment.TopCenter
-                )
+                .weight(3f)
                 .semantics {
                     traversalIndex = ZEROF
                 },
@@ -194,14 +195,27 @@ fun SearchBarHeaderView(
             state = searchBarState,
             inputField = inputField
         )
+
+        AnimatedVisibility(
+            visible = searchBarState.currentValue != SearchBarValue.Expanded,
+        ) {
+            MbAvatarView(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(
+                        start = Dimen.paddingMedium16dp,
+                        top = Dimen.paddingMedium16dp
+                    ),
+                avatarSize = Dimen.size64dp
+            )
+        }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Preview
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-fun BookmarkListViewPreview2() {
+fun BookmarkListViewPreview2Mb() {
     MaterialBookmarkMaterialTheme {
         Column(
             modifier = Modifier
@@ -213,7 +227,7 @@ fun BookmarkListViewPreview2() {
                 space = Dimen.paddingMedium16dp
             )
         ) {
-            SearchBarHeaderView(
+            MbSearchBarHeaderView(
                 modifier = Modifier,
                 searchBarState = rememberSearchBarState(
                     initialValue = SearchBarValue.Collapsed
@@ -223,7 +237,7 @@ fun BookmarkListViewPreview2() {
                 onClearCallback = {},
             )
 
-            SearchBarHeaderView(
+            MbSearchBarHeaderView(
                 modifier = Modifier,
                 searchBarState = rememberSearchBarState(
                     initialValue = SearchBarValue.Expanded

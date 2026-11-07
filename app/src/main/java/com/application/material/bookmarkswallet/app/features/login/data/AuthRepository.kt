@@ -5,6 +5,7 @@ import androidx.credentials.Credential
 import androidx.credentials.CredentialManager
 import androidx.credentials.GetCredentialRequest
 import com.application.material.bookmarkswallet.app.BuildConfig
+import com.application.material.bookmarkswallet.app.BuildConfig.SERVER_CLIENT_ID
 import com.application.material.bookmarkswallet.app.features.bookmarkList.model.User
 import com.application.material.bookmarkswallet.app.storage.DataStoreManager
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
@@ -14,9 +15,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
+import timber.log.Timber
 
 
 @Singleton
@@ -28,6 +31,7 @@ class AuthRepository @Inject constructor(
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     suspend fun signInWithCredential(context: Context): Result<User?> =
         try {
+            Timber.e("----->" + SERVER_CLIENT_ID)
             val googleIdOption = GetGoogleIdOption.Builder()
                 .setServerClientId(BuildConfig.SERVER_CLIENT_ID)
                 .setFilterByAuthorizedAccounts(false)
@@ -47,8 +51,9 @@ class AuthRepository @Inject constructor(
                     )
                 }
             Result.success(user)
-        } catch (e: GoogleIdTokenParsingException) {
-            // Handle parsing exception
+        } catch (e: Exception) {
+            if (e is CancellationException) throw e
+            Timber.e(e, "Error during credential sign in")
             Result.failure(e)
         }
 

@@ -31,18 +31,16 @@ class LoginViewModel @Inject constructor(
                         .also {
                             when {
                                 it.isSuccess -> {
-                                    it.getOrThrow()
-                                        ?.also { user ->
-                                            Timber.e(
-                                                user.toString()
-                                            )
-                                            //store in repository
-                                            authRepository.setUser(
-                                                user = user
-                                            )
-                                            //call callback
-                                            onComplete.invoke(user, null)
-                                        }
+                                    val user = it.getOrNull()
+                                    if (user != null) {
+                                        Timber.e(user.toString())
+                                        //store in repository
+                                        authRepository.setUser(user = user)
+                                        //call callback
+                                        onComplete.invoke(user, null)
+                                    } else {
+                                        onComplete.invoke(null, Exception("Failed to parse Google ID token"))
+                                    }
                                 }
 
                                 it.isFailure -> onComplete.invoke(null, it.exceptionOrNull())

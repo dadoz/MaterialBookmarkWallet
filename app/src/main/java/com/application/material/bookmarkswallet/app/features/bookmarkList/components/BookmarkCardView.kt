@@ -80,7 +80,7 @@ fun BookmarkCardView(
                             shape = mbCardRoundedCornerShape()
                         )
                         .size(
-                            size = Dimen.sizeExtraLarge64dp
+                            size = Dimen.size64dp
                         ),
                 )
 
